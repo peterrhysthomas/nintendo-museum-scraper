@@ -12,4 +12,4 @@ RUN useradd -m appuser && chown -R appuser /app
 USER appuser
 
 # Set the entrypoint
-ENTRYPOINT ["python3", "scraper.py", "--year", "2026", "--month", "2-4"]
+ENTRYPOINT ["python3", "scraper.py"]
