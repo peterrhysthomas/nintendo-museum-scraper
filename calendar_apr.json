@@ -1,0 +1,318 @@
+{
+    "data": {
+        "calendar": {
+            "2026-04-01": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-02": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-03": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-04": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-05": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-06": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-07": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": {
+                    "color_code": 1,
+                    "message": "off"
+                },
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-08": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-09": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-10": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-11": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-12": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-13": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-14": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": {
+                    "color_code": 1,
+                    "message": "off"
+                },
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-15": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-16": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-17": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-18": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-19": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-20": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-21": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": {
+                    "color_code": 1,
+                    "message": "off"
+                },
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-22": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-23": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-24": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-25": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-26": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-27": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-28": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": {
+                    "color_code": 1,
+                    "message": "off"
+                },
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-29": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": "Showa",
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            },
+            "2026-04-30": {
+                "apply_type": null,
+                "sale_status": null,
+                "open_status": null,
+                "holiday": null,
+                "day_label": null,
+                "is_temporary_closure": false,
+                "temporary_closure_time": null,
+                "is_holding": false
+            }
+        }
+    }
+}
