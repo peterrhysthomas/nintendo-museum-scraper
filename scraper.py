@@ -133,7 +133,8 @@ def main():
             
             subject = "Nintendo Museum Tickets ALERT" if has_tickets else "Nintendo Museum Tickets Not Available"
             
-            should_send = has_tickets or args.always_send
+            always_send = args.always_send or os.environ.get("ALWAYS_SEND_EMAIL", "").lower() in ("true", "1", "yes", "on")
+            should_send = has_tickets or always_send
 
             if should_send:
                 if args.dry_run_email:
@@ -148,17 +149,34 @@ def main():
 
     # API Mode
     now = datetime.now()
-    year = args.year if args.year else now.year
     
+    # Resolve Year: CLI > Env > Default (Now)
+    year = args.year
+    if not year and os.environ.get("TARGET_YEAR"):
+        try:
+            year = int(os.environ.get("TARGET_YEAR"))
+        except ValueError:
+             print(f"Warning: Invalid TARGET_YEAR environment variable '{os.environ.get('TARGET_YEAR')}'. Using default.")
+    if not year:
+        year = now.year
+    
+    # Resolve Month: CLI > Env > None
+    month_arg = args.month
+    if not month_arg:
+        month_arg = os.environ.get("TARGET_MONTH")
+    
+    # Resolve Always Send: CLI > Env > False
+    always_send = args.always_send or os.environ.get("ALWAYS_SEND_EMAIL", "").lower() in ("true", "1", "yes", "on")
+
     target_months = []
-    if args.month:
-        if '-' in args.month:
-            start, end = map(int, args.month.split('-'))
+    if month_arg:
+        if '-' in month_arg:
+            start, end = map(int, month_arg.split('-'))
             target_months = list(range(start, end + 1))
-        elif ',' in args.month:
-             target_months = [int(m) for m in args.month.split(',')]
+        elif ',' in month_arg:
+             target_months = [int(m) for m in month_arg.split(',')]
         else:
-            target_months = [int(args.month)]
+            target_months = [int(month_arg)]
     else:
         # Default to next month if not specified
         next_month = (now.month % 12) + 1
@@ -181,12 +199,12 @@ def main():
     if all_calendar_data:
         # Create a synthetic data structure to reuse process_calendar_data logic
         synthetic_data = {'data': {'calendar': all_calendar_data}}
-        output_text, has_tickets = process_calendar_data(synthetic_data, f"{year} Months: {args.month}")
+        output_text, has_tickets = process_calendar_data(synthetic_data, f"{year} Months: {month_arg}")
         print(output_text)
         
         subject = "Nintendo Museum Tickets ALERT" if has_tickets else "Nintendo Museum Tickets Not Available"
         
-        should_send = has_tickets or args.always_send
+        should_send = has_tickets or always_send
 
         if should_send:
             if args.dry_run_email:
