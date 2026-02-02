@@ -250,9 +250,13 @@ def process_calendar_data(data, source_name):
         if sale_status == 1 and open_status == 1:
             sale_open_days.append(date_str)
 
-    # Reordering Output: Found Days First
+    # Reordering Output: Link + Found Days + Full Table
     output = []
     
+    # Add link to the top
+    output.append("https://museum-tickets.nintendo.com/en/calendar")
+    output.append("") # Spacer
+
     if sale_open_days:
         output.append("="*30)
         output.append(f"FOUND {len(sale_open_days)} day(s) with SALE and OPEN status in [{source_name}]:")
