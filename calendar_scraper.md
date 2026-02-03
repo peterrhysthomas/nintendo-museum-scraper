@@ -23,11 +23,17 @@ open_status -
 
 Allow the script to be called with a range of months to check tickets for, e.g 2-4 would check February and March and April. If multiple months are provided, all data should be collated into a single output.
 
+Email Output:
 Once the output is produced, this should be formed into an email and sent to the email address [peterrhysthomas@yahoo.co.uk] from the email address [peter.thomastechnology@gmail.com], add in the relevant SMTP server details to allow this to work.
 
 The email should have the title 'Nintendo Museum Tickets Not Available' if no tickets are available, or 'Nintendo Museum Tickets ALERT' if tickets are available. Within the body of the email, first show any days with availability and then after show the entire table.  At the top of the email body, put the link to the calendar webpage 'https://museum-tickets.nintendo.com/en/calendar'
 
 The script should take a parameter to indicate whether to send the email or not.  If the parameter is not provided, the script should not send the email in the case of there being no tickets available.  If there are tickets available, the script should send the email.
+
+Bluesky Output:
+Once the output is produced, this should be formed into a Bluesky post and sent to the Bluesky account 'prt12345.bsky.social'.  The password will be provided in an environment variable.
+
+The Bluesky post should only be sent if there are tickets available.  The post should first include the link to the calendar webpage 'https://museum-tickets.nintendo.com/en/calendar' and then contain only the days with availability.  Make the link a clickable url in the post.
 
 Test scenarios:
 Mock the results of the api call to test the script.  Use the following files to test the script.

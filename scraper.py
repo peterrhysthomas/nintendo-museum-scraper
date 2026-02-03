@@ -128,15 +128,15 @@ def main():
         # File mode (single file)
         data = load_data_from_file(args.file)
         if data:
-            output_text, has_tickets = process_calendar_data(data, "File: " + args.file)
+            output_text, has_tickets, found_days = process_calendar_data(data, "File: " + args.file)
             print(output_text)
             
             subject = "Nintendo Museum Tickets ALERT" if has_tickets else "Nintendo Museum Tickets Not Available"
             
             always_send = args.always_send or os.environ.get("ALWAYS_SEND_EMAIL", "").lower() in ("true", "1", "yes", "on")
-            should_send = has_tickets or always_send
+            should_send_email = has_tickets or always_send
 
-            if should_send:
+            if should_send_email:
                 if args.dry_run_email:
                      print(f"\n[Dry Run] Would send email to peterrhysthomas@yahoo.co.uk from peter.thomastechnology@gmail.com using smtp.gmail.com:587")
                      print(f"Subject: {subject}")
@@ -145,6 +145,16 @@ def main():
                      send_email(output_text, subject)
             else:
                 print("\nEmail not sent (Use --always-send to force sending when no tickets are found).")
+
+            # Bluesky Logic
+            if has_tickets:
+                 bsky_text = "https://museum-tickets.nintendo.com/en/calendar\n\n"
+                 bsky_text += "\n".join(found_days)
+                 
+                 if args.dry_run_email:
+                      print(f"\n[Dry Run] Would post to Bluesky (prt12345.bsky.social):\n{bsky_text}")
+                 else:
+                      post_to_bluesky(bsky_text)
         return
 
     # API Mode
@@ -199,14 +209,15 @@ def main():
     if all_calendar_data:
         # Create a synthetic data structure to reuse process_calendar_data logic
         synthetic_data = {'data': {'calendar': all_calendar_data}}
-        output_text, has_tickets = process_calendar_data(synthetic_data, f"{year} Months: {month_arg}")
+        output_text, has_tickets, found_days = process_calendar_data(synthetic_data, f"{year} Months: {month_arg}")
         print(output_text)
         
         subject = "Nintendo Museum Tickets ALERT" if has_tickets else "Nintendo Museum Tickets Not Available"
         
-        should_send = has_tickets or always_send
+        always_send = args.always_send or os.environ.get("ALWAYS_SEND_EMAIL", "").lower() in ("true", "1", "yes", "on")
+        should_send_email = has_tickets or always_send
 
-        if should_send:
+        if should_send_email:
             if args.dry_run_email:
                  print(f"\n[Dry Run] Would send email to peterrhysthomas@yahoo.co.uk from peter.thomastechnology@gmail.com using smtp.gmail.com:587")
                  print(f"Subject: {subject}")
@@ -215,16 +226,27 @@ def main():
                  send_email(output_text, subject)
         else:
             print("\nEmail not sent (Use --always-send to force sending when no tickets are found).")
+
+        # Bluesky Logic
+        if has_tickets:
+             bsky_text = "https://museum-tickets.nintendo.com/en/calendar\n\n"
+             bsky_text += "\n".join(found_days)
+             
+             if args.dry_run_email: # Reusing this flag for dry run across the board
+                  print(f"\n[Dry Run] Would post to Bluesky (prt12345.bsky.social):\n{bsky_text}")
+             else:
+                  post_to_bluesky(bsky_text)
+
     else:
         print("No data found for the specified range.")
 
 def process_calendar_data(data, source_name):
     if not data:
-        return "", False
+        return "", False, []
 
     # Check if expected structure exists
     if 'data' not in data or 'calendar' not in data['data']:
-        return "Error: JSON structure does not match expected format (data.calendar).", False
+        return "Error: JSON structure does not match expected format (data.calendar).", False, []
 
     calendar_data = data['data']['calendar']
     
@@ -273,7 +295,7 @@ def process_calendar_data(data, source_name):
     # Then append the full table
     output.extend(full_table)
     
-    return "\n".join(output), bool(sale_open_days)
+    return "\n".join(output), bool(sale_open_days), sale_open_days
 
 import smtplib
 from email.mime.text import MIMEText
@@ -302,6 +324,82 @@ def send_email(body, subject):
         print(f"Email sent successfully to {to_email}")
     except Exception as e:
         print(f"Error sending email: {e}")
+
+def post_to_bluesky(text):
+    handle = os.environ.get("BLUESKY_HANDLE", "prt12345.bsky.social")
+    password = os.environ.get("BLUESKY_PASSWORD")
+    
+    if not password:
+         print("Warning: BLUESKY_PASSWORD not found in environment variables. Bluesky post skipped.")
+         return
+
+    # 1. Create Session
+    session_url = "https://bsky.social/xrpc/com.atproto.server.createSession"
+    session_data = json.dumps({"identifier": handle, "password": password}).encode('utf-8')
+    
+    try:
+        req = urllib.request.Request(session_url, data=session_data, headers={'Content-Type': 'application/json'})
+        with urllib.request.urlopen(req) as response:
+            session_resp = json.loads(response.read().decode())
+            access_token = session_resp['accessJwt']
+            did = session_resp['did']
+    except Exception as e:
+        print(f"Error authenticating with Bluesky: {e}")
+        return
+
+    # 2. Create Record (Post)
+    post_url = "https://bsky.social/xrpc/com.atproto.repo.createRecord"
+    # Current time in ISO 8601 format with Z
+    created_at = datetime.utcnow().isoformat() + "Z"
+    
+    # Calculate Facets for Links
+    facets = []
+    link_url = "https://museum-tickets.nintendo.com/en/calendar"
+    if link_url in text:
+        # Finding byte indices
+        encoded_text = text.encode('utf-8')
+        encoded_link = link_url.encode('utf-8')
+        
+        start_byte = encoded_text.find(encoded_link)
+        if start_byte != -1:
+            end_byte = start_byte + len(encoded_link)
+            facets.append({
+                "index": {
+                    "byteStart": start_byte,
+                    "byteEnd": end_byte
+                },
+                "features": [{
+                    "$type": "app.bsky.richtext.facet#link",
+                    "uri": link_url
+                }]
+            })
+
+    post_data = {
+        "repo": did,
+        "collection": "app.bsky.feed.post",
+        "record": {
+            "$type": "app.bsky.feed.post",
+            "text": text,
+            "createdAt": created_at,
+            "facets": facets
+        }
+    }
+    
+    try:
+        req = urllib.request.Request(
+            post_url, 
+            data=json.dumps(post_data).encode('utf-8'), 
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f"Bearer {access_token}"
+            }
+        )
+        with urllib.request.urlopen(req) as response:
+            print(f"Successfully posted to Bluesky ({handle})")
+    except Exception as e:
+        print(f"Error posting to Bluesky: {e}")
+        if hasattr(e, 'read'):
+             print(e.read().decode())
 
 if __name__ == "__main__":
     main()
