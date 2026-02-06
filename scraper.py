@@ -148,8 +148,9 @@ def main():
 
             # Bluesky Logic
             if has_tickets:
-                 bsky_text = "https://museum-tickets.nintendo.com/en/calendar\n\n"
+                 bsky_text = "Tickets available:\n"
                  bsky_text += "\n".join(found_days)
+                 bsky_text += "\n\nhttps://museum-tickets.nintendo.com/en/calendar"
                  
                  if args.dry_run_email:
                       print(f"\n[Dry Run] Would post to Bluesky (prt12345.bsky.social):\n{bsky_text}")
@@ -229,8 +230,9 @@ def main():
 
         # Bluesky Logic
         if has_tickets:
-             bsky_text = "https://museum-tickets.nintendo.com/en/calendar\n\n"
+             bsky_text = "Tickets available:\n"
              bsky_text += "\n".join(found_days)
+             bsky_text += "\n\nhttps://museum-tickets.nintendo.com/en/calendar"
              
              if args.dry_run_email: # Reusing this flag for dry run across the board
                   print(f"\n[Dry Run] Would post to Bluesky (prt12345.bsky.social):\n{bsky_text}")

@@ -33,7 +33,7 @@ The script should take a parameter to indicate whether to send the email or not.
 Bluesky Output:
 Once the output is produced, this should be formed into a Bluesky post and sent to the Bluesky account 'prt12345.bsky.social'.  The password will be provided in an environment variable.
 
-The Bluesky post should only be sent if there are tickets available.  The post should first include the link to the calendar webpage 'https://museum-tickets.nintendo.com/en/calendar' and then contain only the days with availability.  Make the link a clickable url in the post.
+The Bluesky post should only be sent if there are tickets available.  The post should first list the days with availability and then include the link to the calendar webpage 'https://museum-tickets.nintendo.com/en/calendar'.  Make the link a clickable url in the post.
 
 Test scenarios:
 Mock the results of the api call to test the script.  Use the following files to test the script.
