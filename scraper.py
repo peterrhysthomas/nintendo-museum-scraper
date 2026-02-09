@@ -137,7 +137,7 @@ def main():
             should_send_email = has_tickets or always_send
 
             if should_send_email:
-                if args.dry_run_email:
+                if os.environ.get("SEND_EMAIL", "").lower() in ("false") or args.dry_run_email:
                      print(f"\n[Dry Run] Would send email to peterrhysthomas@yahoo.co.uk from peter.thomastechnology@gmail.com using smtp.gmail.com:587")
                      print(f"Subject: {subject}")
                      print(f"Body:\n{output_text}")
@@ -219,7 +219,7 @@ def main():
         should_send_email = has_tickets or always_send
 
         if should_send_email:
-            if args.dry_run_email:
+            if os.environ.get("SEND_EMAIL", "").lower() in ("false") or args.dry_run_email:
                  print(f"\n[Dry Run] Would send email to peterrhysthomas@yahoo.co.uk from peter.thomastechnology@gmail.com using smtp.gmail.com:587")
                  print(f"Subject: {subject}")
                  print(f"Body:\n{output_text}")
