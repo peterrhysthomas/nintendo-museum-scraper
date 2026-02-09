@@ -23,6 +23,8 @@ open_status -
 
 Allow the script to be called with a range of months to check tickets for, e.g 2-4 would check February and March and April. If multiple months are provided, all data should be collated into a single output.
 
+If there are tickets available for today's date, these should not be included in the output.  The script should only output tickets for future dates.
+
 Email Output:
 Once the output is produced, this should be formed into an email and sent to the email address [peterrhysthomas@yahoo.co.uk] from the email address [peter.thomastechnology@gmail.com], add in the relevant SMTP server details to allow this to work.
 

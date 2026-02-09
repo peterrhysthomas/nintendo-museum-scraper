@@ -261,6 +261,9 @@ def process_calendar_data(data, source_name):
     full_table.append("-" * len(header))
     
     sale_open_days = []
+    
+    # Get today's date in YYYY-MM-DD format for comparison
+    today_str = datetime.now().strftime('%Y-%m-%d')
 
     for date_str in dates:
         day_data = calendar_data[date_str]
@@ -270,9 +273,10 @@ def process_calendar_data(data, source_name):
         
         full_table.append(f"{date_str:<12} | {get_apply_type_name(apply_type):<12} | {get_sale_status_name(sale_status):<12} | {get_open_status_name(open_status):<15}")
 
-        # Check for SALE (1) and OPEN (1)
+        # Check for SALE (1) and OPEN (1) AND Future Date
         if sale_status == 1 and open_status == 1:
-            sale_open_days.append(date_str)
+            if date_str > today_str:
+                sale_open_days.append(date_str)
 
     # Reordering Output: Link + Found Days + Full Table
     output = []
