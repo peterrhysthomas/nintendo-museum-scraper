@@ -25,6 +25,8 @@ Allow the script to be called with a range of months to check tickets for, e.g 2
 
 If there are tickets available for today's date, these should not be included in the output.  The script should only output tickets for future dates.
 
+Finally filter the output to only produce dates between 2nd to 5th April inclusive.
+
 Email Output:
 Once the output is produced, this should be formed into an email and sent to the email address [peterrhysthomas@yahoo.co.uk] from the email address [peter.thomastechnology@gmail.com], add in the relevant SMTP server details to allow this to work.
 
@@ -39,7 +41,7 @@ The Bluesky post should only be sent if there are tickets available.  The post s
 
 Test scenarios:
 Mock the results of the api call to test the script.  Use the following files to test the script.
-calendar_feb.json - tickets available on 28th Feb
+calendar_feb.json - tickets available on 28th Feb - should not be output as it is before the 2nd of April
 calendar_mar.json - no tickets available
-calendar_apr.json - no tickets available
+calendar_apr.json - tickets available on 3rd, 4th and 5th April - should be output, tickets available on 2nd and 6th April - should not be output as they are outside the range of 2nd to 5th April inclusive
 

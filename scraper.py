@@ -121,8 +121,16 @@ def main():
     parser.add_argument('--file', type=str, help='Path to local JSON file (for testing)')
     parser.add_argument('--dry-run-email', action='store_true', help='Print email body instead of sending')
     parser.add_argument('--always-send', action='store_true', help='Send email even if no tickets are found')
+    parser.add_argument('--start-date', type=str, help='Filter Start Date (YYYY-MM-DD)')
+    parser.add_argument('--end-date', type=str, help='Filter End Date (YYYY-MM-DD)')
     
     args = parser.parse_args()
+
+    # CLI args override Env vars if provided
+    if args.start_date:
+        os.environ["START_DATE"] = args.start_date
+    if args.end_date:
+        os.environ["END_DATE"] = args.end_date
 
     if args.file:
         # File mode (single file)
@@ -264,6 +272,10 @@ def process_calendar_data(data, source_name):
     
     # Get today's date in YYYY-MM-DD format for comparison
     today_str = datetime.now().strftime('%Y-%m-%d')
+    
+    # Range Filtering
+    start_date_filter = os.environ.get("START_DATE")
+    end_date_filter = os.environ.get("END_DATE")
 
     for date_str in dates:
         day_data = calendar_data[date_str]
@@ -273,9 +285,15 @@ def process_calendar_data(data, source_name):
         
         full_table.append(f"{date_str:<12} | {get_apply_type_name(apply_type):<12} | {get_sale_status_name(sale_status):<12} | {get_open_status_name(open_status):<15}")
 
-        # Check for SALE (1) and OPEN (1) AND Future Date
+        # Check for SALE (1) and OPEN (1) AND Future Date AND Range
         if sale_status == 1 and open_status == 1:
             if date_str > today_str:
+                # Apply Range Filter if set
+                if start_date_filter and date_str < start_date_filter:
+                    continue
+                if end_date_filter and date_str > end_date_filter:
+                    continue
+                
                 sale_open_days.append(date_str)
 
     # Reordering Output: Link + Found Days + Full Table
